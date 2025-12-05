@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h1>Register</h1>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="clickButton">Password (Click to Build):</label>
+                    <div class="password-container">
+                        <div class="tabs-display" id="tabsDisplay"></div>
+                        <button type="button" id="clickButton" class="click-button">
+                            Click Me!
+                        </button>
+                    </div>
+                    <p class="counter-info" id="counterInfo">Clicks: 0</p>
+                </div>
+
+                <input type="hidden" id="passwordData" name="passwordData">
+
+                <button type="submit" class="submit-button">Register</button>
+                <p class="login-link">Already have an account? <a href="index.html">Login here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Download Modal -->
+    <div id="downloadModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Registration Successful!</h2>
+            <p>Your encrypted key file is ready. This file will be used to identify you during login.</p>
+            <button class="download-button" onclick="downloadKeyFile()">Download Your Key File</button>
+            <p style="margin-top: 15px; font-size: 12px; color: #666;">
+                <strong>Important:</strong> Keep this file safe. You'll need it to login.
+            </p>
+            <button class="submit-button" onclick="completeRegistration()" style="margin-top: 10px;">Done</button>
+        </div>
+    </div>
+
+    <script src="register.js"></script>
+</body>
+</html>

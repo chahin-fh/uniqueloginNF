@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Username File</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .generator-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .generator-box {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .generator-box h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .info-text {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .download-button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="generator-container">
+        <div class="generator-box">
+            <h1>Generate Username File</h1>
+            <div class="info-text">
+                <strong>Instructions:</strong> Enter a username below to generate an encrypted file. This file will be used during registration and login.
+            </div>
+
+            <div class="form-group">
+                <label for="usernameInput">Enter Username:</label>
+                <input type="text" id="usernameInput" placeholder="e.g., john_doe" required>
+            </div>
+
+            <button class="download-button" onclick="generateFile()">Generate & Download File</button>
+
+            <p class="back-link"><a href="index.html">Back to Login</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Encryption key (must match the one in register.js and script.js)
+        const ENCRYPTION_KEY = 'unique_login_key_2025';
+
+        // XOR encryption function
+        function xorEncrypt(text, key) {
+            let result = '';
+            for (let i = 0; i < text.length; i++) {
+                result += String.fromCharCode(text.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+            }
+            return btoa(result); // Base64 encode
+        }
+
+        function generateFile() {
+            const username = document.getElementById('usernameInput').value.trim();
+
+            if (!username) {
+                alert('Please enter a username');
+                return;
+            }
+
+            // Encrypt the username
+            const encrypted = xorEncrypt(username, ENCRYPTION_KEY);
+
+            // Create a blob and download
+            const blob = new Blob([encrypted], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${username}_credentials.txt`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+
+            alert(`File generated successfully for username: ${username}`);
+        }
+
+        // Allow Enter key to generate file
+        document.getElementById('usernameInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                generateFile();
+            }
+        });
+    </script>
+</body>
+</html>

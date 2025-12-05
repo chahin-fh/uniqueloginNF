@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h1>Login</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="keyFile">Upload Your Key File:</label>
+                    <input type="file" id="keyFile" name="keyFile" required>
+                    <p class="file-info" id="fileInfo"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="clickButton">Password (Click to Build):</label>
+                    <div class="password-container">
+                        <div class="tabs-display" id="tabsDisplay"></div>
+                        <button type="button" id="clickButton" class="click-button">
+                            Click Me!
+                        </button>
+                    </div>
+                    <p class="counter-info" id="counterInfo">Clicks: 0</p>
+                </div>
+
+                <button type="submit" class="submit-button">Login</button>
+                <p class="register-link">Don't have an account? <a href="register.html">Register here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
